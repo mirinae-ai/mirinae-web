@@ -1,0 +1,74 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero';
+import MountainStory from '../components/MountainStory';
+import Faq from '../components/Faq';
+import Miru from '../components/Miru';
+import StoreButtons from '../components/StoreButtons';
+import { SITE, SUPPORT_EMAIL } from '../config';
+
+const year = new Date().getFullYear();
+
+/*
+ * 아일랜드는 세 개다.
+ * - Hero 는 첫 화면이라 `client:load` — 등장 모션이 늦게 붙으면 한 번 튄다.
+ * - MountainStory · Faq 는 스크롤해야 닿는 자리라 `client:visible`.
+ * - Miru · StoreButtons 는 지시어 없이 두어 정적 HTML 로만 나간다 (자바스크립트 0).
+ */
+---
+
+<Layout title={`${SITE.name} — ${SITE.tagline}`}>
+  <header class="absolute inset-x-0 top-0 z-30">
+    <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
+      <a href="/" class="wordmark text-xl font-bold text-ink">Mirinae</a>
+      <div class="flex items-center gap-5 text-sm font-medium text-ink-soft sm:gap-7">
+        <a class="transition-colors hover:text-brand" href="#what-it-is">What it is</a>
+        <a class="transition-colors hover:text-brand" href="#faq">FAQ</a>
+        <a class="hidden transition-colors hover:text-brand sm:inline" href="/privacy">Privacy</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <Hero client:load />
+
+    <MountainStory client:visible />
+
+    <section id="faq" class="mx-auto max-w-3xl px-6 pt-20 pb-24 sm:pt-24 sm:pb-32">
+      <p class="text-[12px] font-semibold uppercase tracking-[0.2em] text-brand">Before you ask</p>
+      <h2 class="mt-4 text-balance text-3xl font-bold leading-tight text-ink sm:text-4xl">
+        Frequently asked questions
+      </h2>
+      <Faq client:visible />
+    </section>
+
+    <section class="border-t border-line bg-brand-soft">
+      <div class="mx-auto flex max-w-3xl flex-col items-center px-6 py-24 text-center sm:py-28">
+        <Miru className="h-20 w-20" title="Miru, the Mirinae mascot" />
+        <h2 class="mt-6 text-balance text-3xl font-bold leading-tight text-ink sm:text-4xl">
+          Start with today’s reading.
+        </h2>
+        <p class="mt-4 max-w-md text-lg leading-relaxed text-ink-soft">
+          Free every morning. Sign in with Apple or Google — no payment screen before your first
+          chart reading.
+        </p>
+        <StoreButtons className="mt-9" />
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-line">
+    <div
+      class="mx-auto flex max-w-6xl flex-col items-center gap-6 px-6 py-12 text-sm text-ink-soft sm:flex-row sm:justify-between">
+      <p class="wordmark text-base font-bold text-ink">Mirinae</p>
+
+      <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+        <a class="transition-colors hover:text-brand" href="/privacy">Privacy Policy</a>
+        <a class="transition-colors hover:text-brand" href={`mailto:${SUPPORT_EMAIL}`}>Support</a>
+        <a class="transition-colors hover:text-brand" href="#faq">FAQ</a>
+      </nav>
+
+      <p>© {year} Mirinae</p>
+    </div>
+  </footer>
+</Layout>

@@ -1,0 +1,161 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { PRIVACY_UPDATED, SITE, SUPPORT_EMAIL } from '../config';
+
+/*
+ * 초안이다. 앱이 실제로 다루는 데이터(생년 정보 · 네이탈 차트 · 리딩 · 대화 · 푸시 토큰 ·
+ * 크레딧)와 붙어 있는 서비스(Supabase · Apple/Google 로그인 · APNs/FCM · Intercom)를
+ * 기준으로 썼다. 스토어에 제출하기 전에 법무 검토를 거치고, 아래 목록이 실제 구성과
+ * 맞는지 다시 확인해야 한다.
+ */
+
+const sections = [
+  {
+    id: 'what-we-collect',
+    title: 'What we collect',
+    body: [
+      'Account details. When you sign in with Apple or Google we receive an account identifier and, unless you hide it, an email address. We never see your Apple or Google password.',
+      'Birth details. Your date of birth, time of birth if you know it, and place of birth. These are the inputs your natal chart is computed from — without them the app has nothing to read.',
+      'What the app produces for you. Your computed natal chart, your daily readings, the reports you order together with the answers you gave for them, and your conversations with the app.',
+      'Purchases and credits. A record of credit purchases and how credits were spent. Payment itself is handled by Apple and Google; we never receive your card details.',
+      'Notifications. A push token for your device, if you allow notifications.',
+      'Diagnostics. Basic technical information such as app version, device model and operating system, and crash or error reports.',
+    ],
+  },
+  {
+    id: 'how-we-use-it',
+    title: 'How we use it',
+    body: [
+      'To compute your natal chart and read each day’s transits against it.',
+      'To write the reports you order and to answer you in chat, using your chart and what you told us as the basis.',
+      'To keep your library, conversations and credit balance available when you sign back in.',
+      'To send the notifications you asked for, and to keep the app working — fixing crashes, preventing abuse, and meeting our legal obligations.',
+      'We do not sell your personal information, and we do not use your birth details or conversations for advertising.',
+    ],
+  },
+  {
+    id: 'who-processes-it',
+    title: 'Who processes it for us',
+    body: [
+      'Supabase — authentication and database hosting.',
+      'Apple and Google — sign-in, app distribution, and in-app purchases.',
+      'Apple Push Notification service and Firebase Cloud Messaging — delivering notifications.',
+      'An AI model provider — generating the text of readings, reports and chat answers. The material sent is limited to what a reading needs: your chart, the question, and the answers you gave.',
+      'Intercom — customer support conversations, when you contact us from inside the app.',
+      'These providers act on our instructions and may process data outside your country. Where that happens we rely on the transfer safeguards their agreements provide.',
+    ],
+  },
+  {
+    id: 'how-long',
+    title: 'How long we keep it',
+    body: [
+      'Your account data — birth details, chart, readings, reports and conversations — is kept while your account exists, so that your library stays where you left it.',
+      'When you delete your account from Settings → Account, your birth details, chart, daily readings and conversations are removed for good. Records we are required to keep, such as purchase receipts for tax and accounting, are retained for the period the law requires.',
+      'Diagnostic and crash data is kept for a limited period and then discarded.',
+    ],
+  },
+  {
+    id: 'your-rights',
+    title: 'Your choices and rights',
+    body: [
+      'You can correct your birth details at any time in the app; your chart is recomputed when you do.',
+      'You can turn notifications off in the app or in your device settings.',
+      'You can delete your account, and with it your birth details, chart, readings and conversations, from Settings → Account.',
+      'Depending on where you live you may also have the right to access a copy of your data, to object to or restrict certain processing, or to lodge a complaint with your data protection authority. Write to us and we will help.',
+    ],
+  },
+  {
+    id: 'children',
+    title: 'Children',
+    body: [
+      'Mirinae is not intended for children. Do not use the app or give us birth details if you are under the age required in your country to consent to the processing of your personal data.',
+    ],
+  },
+  {
+    id: 'not-advice',
+    title: 'What Mirinae is not',
+    body: [
+      'Readings are written to help you think, not to predict events. They are not medical, psychological, legal or financial advice. If something you are facing needs professional help, please seek it.',
+    ],
+  },
+  {
+    id: 'changes',
+    title: 'Changes to this policy',
+    body: [
+      'If we change how we handle your data we will update this page and change the date above. Significant changes will also be announced in the app.',
+    ],
+  },
+];
+---
+
+<Layout
+  title={`Privacy Policy — ${SITE.name}`}
+  description="How Mirinae collects, uses and protects your birth details, chart, readings and conversations.">
+  <header class="border-b border-line">
+    <nav class="mx-auto flex max-w-3xl items-center justify-between px-6 py-6">
+      <a href="/" class="wordmark text-xl font-bold text-ink">Mirinae</a>
+      <a class="text-sm font-medium text-ink-soft transition-colors hover:text-brand" href="/">
+        Back to home
+      </a>
+    </nav>
+  </header>
+
+  <main class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+    <p class="text-[12px] font-semibold uppercase tracking-[0.2em] text-brand">Legal</p>
+    <h1 class="mt-4 text-4xl font-bold leading-tight text-ink sm:text-5xl">Privacy Policy</h1>
+    <p class="mt-4 text-base text-ink-soft">Last updated {PRIVACY_UPDATED}</p>
+
+    <p class="mt-8 text-lg leading-relaxed text-ink-soft">
+      Mirinae reads your birth chart, so the app asks for something personal: when and where you
+      were born. This page explains what we collect, what we do with it, who else touches it, and
+      how to get rid of it.
+    </p>
+
+    <nav class="mt-10 rounded-2xl bg-brand-soft p-6">
+      <p class="text-sm font-semibold text-ink">On this page</p>
+      <ul class="mt-3 grid gap-2 sm:grid-cols-2">
+        {
+          sections.map((section) => (
+            <li>
+              <a
+                class="text-sm text-ink-soft transition-colors hover:text-brand"
+                href={`#${section.id}`}>
+                {section.title}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    {
+      sections.map((section) => (
+        <section id={section.id} class="mt-14 scroll-mt-8">
+          <h2 class="text-2xl font-bold leading-snug text-ink">{section.title}</h2>
+          <div class="mt-4 space-y-4">
+            {section.body.map((paragraph) => (
+              <p class="text-base leading-relaxed text-ink-soft">{paragraph}</p>
+            ))}
+          </div>
+        </section>
+      ))
+    }
+
+    <section id="contact" class="mt-14 scroll-mt-8 border-t border-line pt-10">
+      <h2 class="text-2xl font-bold leading-snug text-ink">Contact</h2>
+      <p class="mt-4 text-base leading-relaxed text-ink-soft">
+        Questions about this policy, or a request about your data — write to
+        <a class="font-medium text-brand hover:underline" href={`mailto:${SUPPORT_EMAIL}`}>
+          {SUPPORT_EMAIL}
+        </a>.
+      </p>
+    </section>
+  </main>
+
+  <footer class="border-t border-line">
+    <div class="mx-auto flex max-w-3xl items-center justify-between px-6 py-10 text-sm text-ink-soft">
+      <a class="transition-colors hover:text-brand" href="/">← Mirinae</a>
+      <p>© {new Date().getFullYear()} Mirinae</p>
+    </div>
+  </footer>
+</Layout>

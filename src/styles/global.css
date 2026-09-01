@@ -1,0 +1,78 @@
+@import 'tailwindcss';
+
+/**
+ * Mirinae 디자인 토큰.
+ * 원본은 앱의 `src/theme/tokens.ts` 이고, 여기에는 랜딩이 실제로 쓰는 것만 옮겼다.
+ * 값을 고칠 일이 생기면 앱 쪽을 먼저 고치고 그 결과를 여기로 가져온다.
+ */
+@theme {
+  --font-sans: 'Inter Variable', 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  --color-paper: #fcfcfc;
+  --color-ink: #221c2b;
+  --color-ink-soft: #635b6d;
+  --color-line: #e9e6ee;
+
+  --color-brand: #7c5dfa;
+  --color-brand-soft: #f3efff;
+  --color-brand-wash: #ebe6f8;
+
+  /*
+   * Miru 몸통의 그라디언트 네 정거장(miru-base.svg).
+   * 산등성이가 이 색을 그대로 쓴다 — 마스코트와 배경이 한 물감에서 나온 것처럼 보이게.
+   */
+  --color-mist: #aabcf4;
+  --color-lilac: #8882e6;
+  --color-indigo: #5b4fc8;
+  --color-night: #3d347e;
+  /* 눈동자 잉크. 산 안쪽에서 가장 깊은 자리 */
+  --color-abyss: #2f275c;
+
+  --color-spark: #eab4d7;
+  --color-spark-cool: #9dbef1;
+
+  /* 여섯 영역 — 하나의 채도, 여섯 가지 색 */
+  --color-area-love: #f4b79a;
+  --color-area-emotion: #c4bdf5;
+  --color-area-career: #a8ccf2;
+  --color-area-health: #a9d9c7;
+  --color-area-money: #e3ce9b;
+  --color-area-growth: #c9dfa8;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  /* 스크롤 이동도 움직임이다 — 줄이기로 한 사람에게는 붙이지 않는다. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-brand-soft);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@utility wordmark {
+  letter-spacing: -0.02em;
+}
