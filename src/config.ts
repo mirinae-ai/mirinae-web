@@ -8,8 +8,6 @@
 
 export const SITE = {
   name: 'Mirinae',
-  /** 배포 도메인. og:url · canonical 에 쓰인다. 도메인이 정해지면 고친다. */
-  url: 'https://mirinae.app',
   tagline: 'Astrology counseling that reads your birth chart.',
   description:
     'Mirinae computes your birth chart, reads today’s sky against it, and helps you think through what’s on your mind — a daily reading, written reports, and a conversation that already knows your chart.',
@@ -20,6 +18,11 @@ export const STORE_LINKS = {
   appStore: null as string | null,
   googlePlay: null as string | null,
 } as const;
+
+/*
+ * 사이트의 절대 주소는 여기 없다 — `astro.config.mjs` 의 `site` 가 정본이고
+ * 페이지에서는 `Astro.site` 로 읽는다. 배포 환경마다 달라지는 값이라 손으로 적지 않는다.
+ */
 
 /** 문의처. 스토어 심사에서도 요구하는 값이라 개인정보처리방침과 같은 주소를 쓴다. */
 export const SUPPORT_EMAIL = 'support@mirinae.app';

@@ -11,9 +11,30 @@ pnpm check     # astro check (타입)
 
 ## 배포
 
-Vercel 이 `astro build` -> `dist/` 를 그대로 감지한다. 저장소를 import 하면 설정 없이 붙고,
-어댑터도 필요 없다 (SSR 이 없다). 나중에 서버 렌더가 필요해지면 `npx astro add vercel` 로
+Vercel. 저장소가 private 이라 Git import 대신 CLI 로 올린다:
+
+```bash
+vercel --prod --yes
+```
+
+현재 운영 주소는 https://mirinae-web-beta.vercel.app 다.
+
+정적 빌드라 어댑터는 필요 없다. 나중에 서버 렌더가 필요해지면 `npx astro add vercel` 로
 `@astrojs/vercel` 을 붙이고 `output` 을 바꾸면 된다.
+
+### 사이트 주소
+
+`og:image` 와 `canonical` 은 절대 URL 이라 빌드가 자기 주소를 알아야 한다. 손으로 적어 두면
+그 도메인이 없는 동안 공유 미리보기가 통째로 깨진다 — 실제로 한 번 깨졌다. 그래서
+`astro.config.mjs` 의 `site` 가 환경에게 묻는다:
+
+1. `PUBLIC_SITE_URL` — 직접 정할 때
+2. `VERCEL_PROJECT_PRODUCTION_URL` — Vercel 이 빌드 때 넣어 주는 이 프로젝트의 운영 도메인
+3. 그 밖(로컬 빌드) — 지금의 운영 주소
+
+**mirinae.app 같은 커스텀 도메인을 붙인 뒤에는 배포본의 `og:image` 가 그 도메인으로
+바뀌었는지 한 번 확인한다.** 안 바뀌면 Vercel 프로젝트 환경변수에 `PUBLIC_SITE_URL` 을
+직접 넣으면 된다.
 
 ## 구조
 

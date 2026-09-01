@@ -13,11 +13,13 @@ interface Props {
 const { title, description = SITE.description, image = '/og.png' } = Astro.props;
 
 /*
- * og:image 는 절대 URL 이어야 한다 — 미리보기를 만드는 쪽(슬랙 · 카카오 · X)은
- * 우리 페이지의 위치를 모른 채 이 값만 보고 가져간다. 상대 경로면 아무것도 안 뜬다.
+ * og:image 와 canonical 은 절대 URL 이어야 한다 — 미리보기를 만드는 쪽은 우리 페이지의
+ * 위치를 모른 채 이 값만 보고 가져간다. 기준 주소는 `astro.config.mjs` 의 `site` 이고,
+ * 배포 환경이 알려 준 값이 거기 들어 있다.
  */
-const canonical = new URL(Astro.url.pathname, SITE.url).href;
-const ogImage = new URL(image, SITE.url).href;
+const base = Astro.site!;
+const canonical = new URL(Astro.url.pathname, base).href;
+const ogImage = new URL(image, base).href;
 ---
 
 <!doctype html>
