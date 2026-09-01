@@ -21,6 +21,7 @@ Vercel 이 `astro build` -> `dist/` 를 그대로 감지한다. 저장소를 imp
 src/
   components/
     Miru.tsx           마스코트. 앱의 src/components/ui/miru.tsx 를 옮긴 것
+    AreaIcons.tsx      여섯 영역 글리프. 앱의 assets/icons/paint/*.svg 를 옮긴 것
     Hero.tsx           산등성이 + 봉우리 위의 Miru
     MountainStory.tsx  산 안쪽 — 앱이 무엇인지 말하는 섹션
     Faq.tsx            자주 묻는 질문 아코디언
@@ -31,7 +32,26 @@ src/
   pages/index.astro · privacy.astro
   styles/global.css    @theme 브랜드 토큰
   config.ts            스토어 링크 · 도메인 · 문의처
+public/
+  favicon.svg          배경판 없는 Miru
+  og.png               공유 미리보기 1200x630
+  apple-touch-icon.png iOS 홈 화면 180x180
+scripts/
+  brand-images.mjs     og.png · apple-touch-icon.png 를 굽는다
 ```
+
+## 이미지 다시 굽기
+
+`public/og.png` 와 `public/apple-touch-icon.png` 는 커밋된 결과물이다. 브랜드가 바뀌면
+다시 굽는다:
+
+```bash
+node scripts/brand-images.mjs
+```
+
+설치된 Chrome 을 헤드리스로 써서 SVG 를 PNG 로 굽는다. 경로가 다르면 `CHROME_PATH`
+환경변수로 알려 주면 된다. SVG 로 두지 않는 것은 슬랙 · 카카오 · X 의 미리보기가 SVG 를
+읽지 않고, iOS 홈 화면 아이콘도 PNG 만 받기 때문이다.
 
 ## 손대기 전에 알아 둘 것
 
