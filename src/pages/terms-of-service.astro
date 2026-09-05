@@ -1,0 +1,174 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LegalDoc, { type Section } from '../components/LegalDoc.astro';
+import { COMPANY, SITE, SUPPORT_EMAIL, TERMS_UPDATED } from '../config';
+
+/*
+ * 문안은 법무 검토를 거친 정본이다. 문장을 임의로 손보지 말 것 —
+ * 고칠 일이 생기면 정본을 먼저 고치고, 여기에 그대로 옮긴 뒤
+ * `config.ts` 의 `TERMS_UPDATED` 를 함께 올린다.
+ */
+
+const sections: Section[] = [
+  {
+    id: 'agreement',
+    title: 'Agreement to these Terms',
+    body: [
+      `These Terms of Service (“Terms”) are a binding agreement between you and ${COMPANY.legalName}, ${COMPANY.jurisdiction} located at ${COMPANY.address} (“Mirinae,” “we,” “us,” or “our”). They govern your use of the Mirinae mobile application and related services that link to these Terms (collectively, the “Service”).`,
+      'By creating an account or using the Service, you agree to these Terms and acknowledge our Privacy Policy. If you do not agree, do not use the Service.',
+    ],
+  },
+  {
+    id: 'eligibility',
+    title: 'Eligibility and your account',
+    body: [
+      'You must be at least 13 years old to use the Service. If you are under the age of legal majority where you live, your parent or legal guardian must review and agree to these Terms on your behalf and is responsible for your use, including purchases.',
+      `You must provide accurate information and keep your account secure. Inaccurate birth information may produce inaccurate astrological content. You may not share or transfer your account, use multiple accounts to evade restrictions, or repeatedly claim a one-time benefit. Contact ${SUPPORT_EMAIL} if you believe your account has been accessed without permission.`,
+    ],
+  },
+  {
+    id: 'service',
+    title: 'The Service and AI-generated content',
+    body: [
+      'Mirinae provides personalized astrological readings, reports, and AI-generated conversations. Some features are free and others require credits. We may add, change, suspend, or discontinue features and do not guarantee that every feature will always be available or error-free.',
+      'The Service is for entertainment and self-reflection. Astrological interpretations and AI-generated content are not facts, predictions, or professional advice. Mirinae does not provide medical care, mental-health treatment, legal advice, financial advice, or another regulated professional service. Generated content may be inaccurate, incomplete, inconsistent, or unsuitable for you, and you are responsible for evaluating and acting on it.',
+      'The Service is not an emergency or crisis-response service. If you or another person may be in immediate danger, contact local emergency services or an appropriate crisis resource.',
+    ],
+  },
+  {
+    id: 'credits',
+    title: 'Credits, purchases, and refunds',
+    body: [
+      { h3: '4.1 Credit charges' },
+      'Credits provide access to certain paid features. The required number of credits is displayed before the relevant purchase or use. By confirming an action that displays a charge, you authorize us to deduct that amount from your balance.',
+      'We may change packages, prices, or credit rates for future transactions. Changes do not alter completed transactions. Application-store prices may vary by country, currency, and tax.',
+      { h3: '4.2 Purchasing credits' },
+      'Credits are sold through Apple App Store or Google Play. The applicable store processes payment and your purchase is also subject to its terms. We receive transaction information needed to verify the purchase but not your full payment-card number.',
+      { h3: '4.3 Nature of credits' },
+      'Credits are a limited, personal, revocable license to access eligible features. They are not money, property, a deposit, or a stored-value instrument. Credits:',
+      {
+        list: [
+          'have no cash value and cannot be redeemed for cash;',
+          'cannot be transferred, sold, gifted, or combined across accounts;',
+          'do not expire while your account is active; and',
+          'may be forfeited when you delete your account or we terminate it for violating these Terms, subject to applicable law.',
+        ],
+      },
+      'Promotional credits may have additional eligibility terms and may be revoked if obtained through fraud, abuse, or error.',
+      { h3: '4.4 Failed delivery and refunds' },
+      `If a technical failure prevents a paid report or AI response from being delivered, the applicable credits will not be charged or will be restored. Contact ${SUPPORT_EMAIL} if you believe a deduction was incorrect. Because generated content is subjective and subject to Section 3, dissatisfaction with delivered content does not automatically entitle you to a refund or credit restoration.`,
+      'Except where law requires otherwise, Apple or Google governs and processes monetary refunds for in-app purchases. If a store refunds, reverses, or revokes a purchase, we may remove the corresponding credits. Nothing in these Terms limits a non-waivable consumer right.',
+      { h3: '4.5 Reports' },
+      'A report uses the profile, chart, and responses associated with your account when requested. Later changes do not automatically update an existing report. You may re-read a delivered report without another charge while your account is active and the report remains available through the Service.',
+    ],
+  },
+  {
+    id: 'content-and-rights',
+    title: 'Your content, generated output, and our rights',
+    body: [
+      'You retain any rights you have in content you submit, such as messages and report responses (“Your Content”). You grant us a worldwide, non-exclusive, royalty-free license to host, reproduce, process, transmit, and adapt Your Content as needed to operate, secure, support, and improve the Service and provide features you request. The license ends when Your Content is deleted, except for retention permitted by our Privacy Policy or law.',
+      'You must have the right to provide Your Content and must not violate another person’s privacy, intellectual-property, publicity, or other rights. Generated output may not be unique or legally protectable, and others may receive similar content. Subject to these Terms and applicable law, you may use output generated for you for personal, non-commercial purposes.',
+      'The Service and its software, prompts, templates, catalog, design, text, graphics, trademarks, and other materials belong to us or our licensors. We grant you a limited, non-exclusive, non-transferable, revocable license to use the Service for personal, non-commercial purposes. All other rights are reserved. If you provide feedback, we may use it without restriction or compensation.',
+    ],
+  },
+  {
+    id: 'acceptable-use',
+    title: 'Acceptable use',
+    body: [
+      'You may not:',
+      {
+        list: [
+          'use the Service unlawfully or to harass, threaten, exploit, defraud, or harm anyone;',
+          'submit content that is unlawful or infringes another person’s rights;',
+          'impersonate someone or present generated content as verified professional advice;',
+          'use unauthorized automation, scrape the Service, or build a competing dataset, model, or service;',
+          'reverse engineer, disrupt, overload, or introduce malicious code into the Service;',
+          'bypass security, usage limits, credit charges, or purchase verification; or',
+          'use deceptive information or multiple accounts to obtain credits or benefits.',
+        ],
+      },
+      'We may investigate suspected violations and take reasonable protective action.',
+    ],
+  },
+  {
+    id: 'third-party',
+    title: 'Third-party services and application stores',
+    body: [
+      'The Service may rely on or link to third-party services governed by their own terms and privacy policies. We do not control those services.',
+      'These Terms are between you and us, not Apple or Google. If you obtained the application through Apple App Store, Apple’s standard Licensed Application End User License Agreement applies to the application license where applicable. Purchases through Apple App Store or Google Play remain subject to the applicable store’s terms and policies.',
+    ],
+  },
+  {
+    id: 'termination',
+    title: 'Suspension, termination, and deletion',
+    body: [
+      'You may stop using the Service and delete your account at any time. Deletion removes associated information as described in our Privacy Policy and may forfeit unused credits and access to saved reports, subject to law.',
+      'We may suspend or terminate access if you materially or repeatedly violate these Terms, engage in fraud or abuse, create legal or security risk, or if law requires it. Where reasonable and permitted, we will provide notice. Provisions that by their nature should survive termination will survive.',
+    ],
+  },
+  {
+    id: 'disclaimers',
+    title: 'Disclaimers',
+    body: [
+      'TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE SERVICE IS PROVIDED “AS IS” AND “AS AVAILABLE,” WITHOUT WARRANTIES OF ANY KIND, INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT. WE DO NOT WARRANT THAT THE SERVICE WILL BE UNINTERRUPTED, SECURE, OR ERROR-FREE, OR THAT ANY ASTROLOGICAL OR AI-GENERATED CONTENT WILL BE ACCURATE, RELIABLE, UNIQUE, OR SUITABLE FOR YOU.',
+      'Some jurisdictions do not allow certain exclusions, so some of this section may not apply to you.',
+    ],
+  },
+  {
+    id: 'liability',
+    title: 'Limitation of liability',
+    body: [
+      'TO THE MAXIMUM EXTENT PERMITTED BY LAW, MIRINAE AND ITS AFFILIATES, OFFICERS, EMPLOYEES, AGENTS, AND SERVICE PROVIDERS WILL NOT BE LIABLE FOR INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES, OR FOR LOST PROFITS, DATA, OR GOODWILL, ARISING FROM THE SERVICE OR ITS CONTENT.',
+      'OUR TOTAL LIABILITY FOR ALL CLAIMS RELATING TO THE SERVICE OR THESE TERMS WILL NOT EXCEED THE GREATER OF (A) THE AMOUNT YOU PAID FOR THE SERVICE DURING THE 12 MONTHS BEFORE THE EVENT GIVING RISE TO THE CLAIM OR (B) USD 50. Nothing in these Terms limits liability that cannot lawfully be limited.',
+    ],
+  },
+  {
+    id: 'indemnity',
+    title: 'Indemnity',
+    body: [
+      'To the extent permitted by law, you agree to indemnify and hold harmless Mirinae and its affiliates, officers, employees, and agents from third-party claims and reasonable legal expenses arising from Your Content, your unlawful use of the Service, or your material breach of these Terms. This does not apply to our own unlawful conduct or where law prohibits the obligation.',
+    ],
+  },
+  {
+    id: 'changes',
+    title: 'Changes to these Terms',
+    body: [
+      'We may update these Terms as the Service, our business, or the law changes. We will post the updated Terms and revise the date above. If a change materially affects your rights, we will give additional notice where required. If you do not agree, you must stop using the Service. Continued use after the effective date constitutes acceptance to the extent permitted by law.',
+    ],
+  },
+  {
+    id: 'governing-law',
+    title: 'Governing law and disputes',
+    body: [
+      'These Terms are governed by the laws of the State of Delaware, without regard to conflict-of-laws principles. Disputes will be brought in the state or federal courts located in New York County, New York. This choice does not deprive a consumer of mandatory local protections or a legally required forum.',
+      'Before filing a formal claim, you and Mirinae will make a reasonable, good-faith effort to resolve the dispute by describing the issue and requested resolution to the other party.',
+    ],
+  },
+  {
+    id: 'miscellaneous',
+    title: 'Miscellaneous',
+    body: [
+      'These Terms and the Privacy Policy are the entire agreement concerning the Service, except for additional terms presented for a feature or promotion. If a provision is unenforceable, the rest remains effective. Failure to enforce a provision is not a waiver. You may not assign these Terms without our consent; we may assign them in connection with a corporate transaction or by law.',
+    ],
+  },
+  {
+    id: 'contact',
+    title: 'Contact us',
+    body: [
+      'Questions, complaints, or claims may be directed to:',
+      {
+        list: [
+          `Email: ${SUPPORT_EMAIL}`,
+          `Postal address: ${COMPANY.legalName}, ${COMPANY.address}`,
+        ],
+      },
+    ],
+  },
+];
+---
+
+<Layout
+  title={`Terms of Service — ${SITE.name}`}
+  description="The terms that govern your use of the Mirinae app — accounts, credits, AI-generated content, and your rights.">
+  <LegalDoc title="Terms of Service" updated={TERMS_UPDATED} sections={sections} />
+</Layout>

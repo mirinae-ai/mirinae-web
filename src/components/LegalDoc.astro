@@ -1,0 +1,114 @@
+---
+/*
+ * 약관 · 개인정보처리방침처럼 "제목 + 번호 붙은 절" 로만 이루어진 문서를 그린다.
+ * 두 문서가 머리글 · 바닥글을 함께 쓰기 때문에 한 곳에 모아 두었다.
+ *
+ * 본문에는 법무 문안에 있는 것만 나간다 — 요약문도, 목차도 붙이지 않는다.
+ *
+ * 본문은 세 가지 블록으로만 구성한다:
+ *   - 문자열        → 문단
+ *   - { h3 }        → 절 안의 소제목 (2.1 처럼)
+ *   - { list }      → 불릿 목록
+ * 본문에 적힌 이메일 주소는 자동으로 mailto 링크가 된다 — 문자열마다 손으로
+ * 마크업을 섞어 두면 문안을 고칠 때마다 태그를 다시 맞춰야 한다.
+ */
+
+export type Block = string | { h3: string } | { list: string[] };
+
+export interface Section {
+  id: string;
+  title: string;
+  body: Block[];
+}
+
+interface Props {
+  title: string;
+  updated: string;
+  sections: Section[];
+}
+
+const { title, updated, sections } = Astro.props;
+
+const escapeHtml = (text: string) =>
+  text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+
+const anchor = (href: string, label: string) =>
+  `<a class="font-medium text-brand hover:underline" href="${href}">${label}</a>`;
+
+/*
+ * 두 법적 문서는 서로를 계속 가리킨다 — "our Terms of Service", "our Privacy Policy".
+ * 문안에서 그 이름이 나오면 상대 문서로 링크를 건다. 단, 지금 보고 있는 문서의
+ * 이름은 건드리지 않는다 (제자리로 되돌아오는 링크는 없느니만 못하다).
+ */
+const crossLinks = [
+  { phrase: 'Privacy Policy', href: '/privacy' },
+  { phrase: 'Terms of Service', href: '/terms-of-service' },
+].filter((link) => link.phrase !== title);
+
+/** 문단 안의 이메일 주소와 상대 문서 이름을 링크로 바꾼다. */
+const linkify = (text: string) => {
+  let html = escapeHtml(text);
+  for (const { phrase, href } of crossLinks) {
+    html = html.replaceAll(phrase, anchor(href, phrase));
+  }
+  return html.replace(/[\w.+-]+@[\w-]+\.[\w.-]+\w/g, (email) =>
+    anchor(`mailto:${email}`, email)
+  );
+};
+---
+
+<header class="border-b border-line">
+  <nav class="mx-auto flex max-w-3xl items-center justify-between px-6 py-6">
+    <a href="/" class="wordmark text-xl font-bold text-ink">Mirinae</a>
+    <a class="text-sm font-medium text-ink-soft transition-colors hover:text-brand" href="/">
+      Back to home
+    </a>
+  </nav>
+</header>
+
+<main class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+  <h1 class="text-4xl font-bold leading-tight text-ink sm:text-5xl">{title}</h1>
+  <p class="mt-4 text-base text-ink-soft">Last updated: {updated}</p>
+
+  {
+    sections.map((section, index) => (
+      <section id={section.id} class="mt-14 scroll-mt-8">
+        <h2 class="text-2xl font-bold leading-snug text-ink">
+          {index + 1}. {section.title}
+        </h2>
+        <div class="mt-4 space-y-4">
+          {section.body.map((block) =>
+            typeof block === 'string' ? (
+              <p class="text-base leading-relaxed text-ink-soft" set:html={linkify(block)} />
+            ) : 'h3' in block ? (
+              <h3 class="pt-2 text-lg font-semibold leading-snug text-ink">{block.h3}</h3>
+            ) : (
+              <ul class="space-y-2 pl-5">
+                {block.list.map((item) => (
+                  <li
+                    class="list-disc text-base leading-relaxed text-ink-soft marker:text-brand"
+                    set:html={linkify(item)}
+                  />
+                ))}
+              </ul>
+            )
+          )}
+        </div>
+      </section>
+    ))
+  }
+</main>
+
+<footer class="border-t border-line">
+  <div class="mx-auto flex max-w-3xl flex-col items-center gap-4 px-6 py-10 text-sm text-ink-soft sm:flex-row sm:justify-between">
+    <a class="transition-colors hover:text-brand" href="/">← Mirinae</a>
+    <nav class="flex items-center gap-6">
+      <a class="transition-colors hover:text-brand" href="/privacy">Privacy Policy</a>
+      <a class="transition-colors hover:text-brand" href="/terms-of-service">Terms of Service</a>
+    </nav>
+    <p>© {new Date().getFullYear()} Mirinae</p>
+  </div>
+</footer>

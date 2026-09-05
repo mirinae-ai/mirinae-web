@@ -24,8 +24,19 @@ export const STORE_LINKS = {
  * 페이지에서는 `Astro.site` 로 읽는다. 배포 환경마다 달라지는 값이라 손으로 적지 않는다.
  */
 
-/** 문의처. 스토어 심사에서도 요구하는 값이라 개인정보처리방침과 같은 주소를 쓴다. */
-export const SUPPORT_EMAIL = 'support@mirinae.app';
+/**
+ * 문의처. 문의 · 개인정보 요청 · 약관 관련 연락을 한 주소로 받는다 —
+ * 스토어 심사도, 개인정보처리방침도, 이용약관도 모두 이 값을 가리킨다.
+ */
+export const SUPPORT_EMAIL = 'support@peach.technology';
 
-/** 개인정보처리방침의 최종 개정일. 내용을 고치면 같이 올린다. */
-export const PRIVACY_UPDATED = '1 September 2026';
+/** 운영 주체. 개인정보처리방침 · 이용약관에 그대로 적히는 법적 표기다. */
+export const COMPANY = {
+  legalName: 'Peach Technology, Inc.',
+  jurisdiction: 'a Delaware corporation',
+  address: '169 Madison Ave STE 15544, New York, NY 10016, US',
+} as const;
+
+/** 법적 문서의 최종 개정일. 내용을 고치면 같이 올린다. */
+export const PRIVACY_UPDATED = 'September 5, 2026';
+export const TERMS_UPDATED = 'September 5, 2026';
