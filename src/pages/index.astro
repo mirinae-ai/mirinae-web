@@ -5,7 +5,7 @@ import MountainStory from '../components/MountainStory';
 import Faq from '../components/Faq';
 import Miru from '../components/Miru';
 import StoreButtons from '../components/StoreButtons';
-import { SITE, SUPPORT_EMAIL } from '../config';
+import { SITE } from '../config';
 
 const year = new Date().getFullYear();
 
@@ -25,6 +25,9 @@ const year = new Date().getFullYear();
         <a class="transition-colors hover:text-brand" href="#what-it-is">What it is</a>
         <a class="transition-colors hover:text-brand" href="#faq">FAQ</a>
         <a class="hidden transition-colors hover:text-brand sm:inline" href="/privacy">Privacy</a>
+        <a class="hidden transition-colors hover:text-brand sm:inline" href="/terms-of-service">
+          Terms
+        </a>
       </div>
     </nav>
   </header>
@@ -64,7 +67,7 @@ const year = new Date().getFullYear();
 
       <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
         <a class="transition-colors hover:text-brand" href="/privacy">Privacy Policy</a>
-        <a class="transition-colors hover:text-brand" href={`mailto:${SUPPORT_EMAIL}`}>Support</a>
+        <a class="transition-colors hover:text-brand" href="/terms-of-service">Terms of Service</a>
         <a class="transition-colors hover:text-brand" href="#faq">FAQ</a>
       </nav>
 

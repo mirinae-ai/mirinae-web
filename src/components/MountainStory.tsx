@@ -1,14 +1,6 @@
 import { useRef } from 'react';
 import { MotionConfig, motion, useScroll, useSpring, useTransform } from 'motion/react';
 
-import {
-  BriefcaseIcon,
-  EmotionIcon,
-  HealthIcon,
-  HeartIcon,
-  LeafIcon,
-  MoneyIcon,
-} from './AreaIcons';
 import { ENTER, RISE, STAGGER, VIEWPORT } from './motion';
 
 /**
@@ -17,18 +9,9 @@ import { ENTER, RISE, STAGGER, VIEWPORT } from './motion';
  * 히어로의 앞 능선이 #3d347e 로 끝나고 이 섹션이 같은 색에서 시작한다. 스크롤이
  * 능선을 넘어 산 안으로 내려가는 것처럼 이어지고, 아래로 갈수록 색이 깊어진다.
  * 문구는 한 번에 하나씩만 올라온다 — 한꺼번에 나타나면 목록으로 읽히고,
- * 이 섹션은 목록이 아니라 내려가는 길이다.
+ * 이 섹션은 목록이 아니라 내려가는 길이다. 그래서 블록은 앱을 설명하는 데
+ * 꼭 필요한 둘(매일의 리딩 · 챗)로만 둔다.
  */
-
-/** 이름과 글리프는 앱의 `AREA_PRESENTATION` 과 같은 짝이다. */
-const AREAS = [
-  { label: 'Love', Icon: HeartIcon },
-  { label: 'Emotion', Icon: EmotionIcon },
-  { label: 'Career', Icon: BriefcaseIcon },
-  { label: 'Health', Icon: HealthIcon },
-  { label: 'Money', Icon: MoneyIcon },
-  { label: 'Growth', Icon: LeafIcon },
-];
 
 const BLOCKS = [
   {
@@ -37,25 +20,9 @@ const BLOCKS = [
     body: 'Mirinae computes your natal chart once, from your birth date, time and place. After that, each day’s transits are read against it — one reading a day, free.',
   },
   {
-    eyebrow: 'Six areas',
-    title: 'You see where the weather actually is.',
-    body: 'Love, Emotion, Career, Health, Money and Growth, ordered by what is strongest for you today — so you know where to look first.',
-    areas: true,
-  },
-  {
     eyebrow: 'Chat',
     title: 'A conversation that already knows your chart.',
     body: 'No re-explaining yourself. Ask what is on your mind and the answer is read against your own placements, not a sun sign.',
-  },
-  {
-    eyebrow: 'Reports',
-    title: 'One question, answered in writing.',
-    body: 'Pick a question, answer a few prompts, and Mirinae writes a reading built from your chart and what you told it. It lands in your library and stays there.',
-  },
-  {
-    eyebrow: 'No black box',
-    title: 'Every reading names what it came from.',
-    body: 'The transits behind a reading are listed next to it. You can see the basis instead of taking it on faith.',
   },
 ];
 
@@ -67,32 +34,6 @@ function Thread() {
       <span className="h-1.5 w-1.5 rotate-45 bg-white/35" />
       <span className="h-16 w-px bg-gradient-to-b from-white/0 via-white/25 to-white/0" />
     </div>
-  );
-}
-
-function AreaChips() {
-  return (
-    <motion.ul
-      /*
-       * 여섯 개가 한 줄에 들어가야 "여섯 영역"으로 읽힌다. 5 + 1 로 접히면 마지막
-       * 하나가 덤처럼 보인다. 글 단(max-w-2xl)보다 조금 넓게 빼서 한 줄을 지킨다.
-       */
-      className="-mx-4 mt-8 flex flex-wrap justify-center gap-2.5 sm:-mx-14"
-      variants={STAGGER}
-      initial="hidden"
-      whileInView="shown"
-      viewport={VIEWPORT}>
-      {AREAS.map((area) => (
-        <motion.li
-          key={area.label}
-          variants={RISE}
-          transition={ENTER}
-          className="flex items-center gap-1.5 rounded-full border border-white/12 bg-white/6 py-1.5 pl-2 pr-4 text-sm font-medium text-white/85">
-          <area.Icon className="h-7 w-7" />
-          {area.label}
-        </motion.li>
-      ))}
-    </motion.ul>
   );
 }
 
@@ -157,8 +98,6 @@ export function MountainStory() {
                   {block.body}
                 </motion.p>
               </motion.div>
-
-              {block.areas ? <AreaChips /> : null}
             </div>
           ))}
 
